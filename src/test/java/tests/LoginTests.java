@@ -5,16 +5,13 @@ import dto.UserDTOWith;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 public class LoginTests extends BaseTest{
-
     @Test
     public void positiveLoginUserDTO() {
         UserDTO userDTO = new UserDTO("testqa20@gmail.com", "123456Aa$");
         app.getUserHelper().login(userDTO);
         Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
     }
-
     @Test
     public void positiveLoginUserDTOWith() {
         UserDTOWith userDTOWith = new UserDTOWith()
@@ -22,6 +19,5 @@ public class LoginTests extends BaseTest{
                 .withPassword("123456Aa$");
         app.getUserHelper().login(userDTOWith);
         Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
-
     }
 }

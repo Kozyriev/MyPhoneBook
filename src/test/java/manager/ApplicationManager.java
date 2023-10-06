@@ -6,7 +6,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-
     WebDriver driver;
     UserHelper userHelper;
 
@@ -18,7 +17,6 @@ public class ApplicationManager {
 
         userHelper = new UserHelper(driver);
     }
-
     public UserHelper getUserHelper() {
         return userHelper;
     }
