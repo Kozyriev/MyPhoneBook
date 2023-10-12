@@ -21,6 +21,6 @@ public class RandomUtils {
             index = random.nextInt(charLength);
             randomString[i] = characters.charAt(index);
         }
-        return new String(randomString);
+        return new String(randomString); // aksdhjTG78
     }
 }
