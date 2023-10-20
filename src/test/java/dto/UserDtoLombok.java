@@ -11,8 +11,6 @@ import lombok.ToString;
 @Builder
 public class UserDtoLombok {
 
-    String name;
-    String lastName;
     String email;
     String password;
 

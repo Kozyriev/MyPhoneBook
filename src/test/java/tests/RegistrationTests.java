@@ -18,5 +18,44 @@ public class RegistrationTests extends BaseTest{
         app.getUserHelper().fillRegistrationForm(user);
         Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterRegistration());
     }
+    @Test
+    public void negativePasswordWithoutSymbolRegistration() {
+        String email = randomUtils.generateEmail(7);
+
+        UserDtoLombok user = UserDtoLombok.builder()
+                .email(email)
+                .password("123456Aa")
+                .build();
+
+        app.getUserHelper().fillRegistrationForm(user);
+        Assert.assertTrue(app.getUserHelper().validateAlertMessageLoginIncorrectReg());
+    }
+
+    @Test
+    public void negativePasswordWithoutDigitsRegistration() {
+        String email = randomUtils.generateEmail(7);
+
+        UserDtoLombok user = UserDtoLombok.builder()
+                .email(email)
+                .password("djhsdf$Aa")
+                .build();
+
+        app.getUserHelper().fillRegistrationForm(user);
+        Assert.assertTrue(app.getUserHelper().validateAlertMessageLoginIncorrectReg());
+    }
+
+    @Test
+    public void negativePasswordWithoutLettersRegistration() {
+        String email = randomUtils.generateEmail(7);
+
+        UserDtoLombok user = UserDtoLombok.builder()
+                .email(email)
+                .password("12345651$!")
+                .build();
+
+        app.getUserHelper().fillRegistrationForm(user);
+        Assert.assertTrue(app.getUserHelper().validateAlertMessageLoginIncorrectReg());
+    }
+
 
 }
