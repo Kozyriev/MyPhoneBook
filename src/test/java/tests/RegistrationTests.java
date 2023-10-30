@@ -2,9 +2,47 @@ package tests;
 
 import dto.UserDtoLombok;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class RegistrationTests extends BaseTest{
+
+    boolean flagIsAlertPresent = false;
+    boolean flagIsUserLogin = false;
+
+
+    @BeforeClass
+    public void preconditionsBeforeClass() {
+        // refresh // go main page // click btn login
+        app.navigateToMainPage();
+        app.getUserHelper().refresh();
+        app.getUserHelper().openLoginPage();
+    }
+    @BeforeMethod
+    public void preconditionsBeforeMethod() {
+        if(flagIsAlertPresent) {
+            // app.getUserHelper().refresh();
+            flagIsAlertPresent = false;
+//            try {
+//                Thread.sleep(10000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+            app.getUserHelper().clickAcceptAlert();
+        }
+        if (flagIsUserLogin) {
+            flagIsUserLogin = false;
+            app.getUserHelper().SignOut();
+        }
+        app.getUserHelper().refresh();
+        // login
+        // sign out
+        // alert
+    }
+
+
+
 
     @Test
     public void positiveRegistration() {
@@ -15,6 +53,7 @@ public class RegistrationTests extends BaseTest{
                 .password("123456Aa$")
                 .build();
 
+        flagIsUserLogin = true;
         app.getUserHelper().fillRegistrationForm(user);
         Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterRegistration());
     }
@@ -27,6 +66,7 @@ public class RegistrationTests extends BaseTest{
                 .password("123456Aa")
                 .build();
 
+        flagIsAlertPresent = true;
         app.getUserHelper().fillRegistrationForm(user);
         Assert.assertTrue(app.getUserHelper().validateAlertMessageLoginIncorrectReg());
     }
@@ -40,6 +80,7 @@ public class RegistrationTests extends BaseTest{
                 .password("djhsdf$Aa")
                 .build();
 
+        flagIsAlertPresent = true;
         app.getUserHelper().fillRegistrationForm(user);
         Assert.assertTrue(app.getUserHelper().validateAlertMessageLoginIncorrectReg());
     }
@@ -53,6 +94,7 @@ public class RegistrationTests extends BaseTest{
                 .password("12345651$!")
                 .build();
 
+        flagIsAlertPresent = true;
         app.getUserHelper().fillRegistrationForm(user);
         Assert.assertTrue(app.getUserHelper().validateAlertMessageLoginIncorrectReg());
     }
